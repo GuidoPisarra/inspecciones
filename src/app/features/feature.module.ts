@@ -6,20 +6,17 @@ import { MatListModule } from '@angular/material/list';
 import { MatIconModule } from '@angular/material/icon';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatCardModule } from '@angular/material/card';
-import { FormularioPreguntasComponent } from './components/formulario-preguntas/formulario-preguntas.component';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormularioPreguntasComponent } from './components/formulario-preguntas/formulario-preguntas.component';
 import { FotosComponent } from './components/fotos/fotos.component';
 import { SpinnerComponent } from './components/spinner/spinner.component';
-import { InicioComponent } from './components/inicio/inicio.component';
-
 
 @NgModule({
   declarations: [
     FormularioPreguntasComponent,
     FotosComponent,
     SpinnerComponent,
-    InicioComponent
   ],
   imports: [
     CommonModule,
@@ -30,8 +27,12 @@ import { InicioComponent } from './components/inicio/inicio.component';
     MatDialogModule,
     MatCardModule,
     MatFormFieldModule,
-    FormsModule
-  ],
+    FormsModule,
+    ReactiveFormsModule
 
+  ],
+  exports: [
+    SpinnerComponent,
+  ],
 })
 export class FeatureModule { }

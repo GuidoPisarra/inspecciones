@@ -6,15 +6,21 @@ import { provideHttpClient, withFetch } from '@angular/common/http';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
+import { InicioComponent } from './features/components/inicio/inicio.component';
+import { FeatureModule } from "./features/feature.module";
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [
+    AppComponent,
+    InicioComponent
+  ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     StoreModule.forRoot(),
     EffectsModule.forRoot([]),
-  ],
+    FeatureModule
+],
   providers: [
     provideAnimationsAsync(),
 
