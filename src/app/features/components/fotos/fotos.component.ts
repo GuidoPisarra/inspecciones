@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'app-fotos',
-  templateUrl: './fotos.component.html',
-  styleUrl: './fotos.component.scss'
+    selector: 'app-fotos',
+    templateUrl: './fotos.component.html',
+    styleUrl: './fotos.component.scss',
+    standalone: false
 })
 export class FotosComponent {
   fotoTomada: string | null = null;

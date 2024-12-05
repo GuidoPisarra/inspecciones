@@ -3,8 +3,9 @@ import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-formulario-preguntas',
+  standalone: false,
   templateUrl: './formulario-preguntas.component.html',
-  styleUrl: './formulario-preguntas.component.scss'
+  styleUrl: './formulario-preguntas.component.scss',
 })
 export class FormularioPreguntasComponent {
   pregunta1: string = '';

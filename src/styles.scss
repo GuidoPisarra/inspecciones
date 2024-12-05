@@ -1,1 +1,97 @@
-/* You can add global styles to this file, and also import other style files */
+/* ===============================
+   Variables Globales
+================================= */
+
+/* Colores */
+$color-primary: #1e88e5;
+$color-secondary: #43a047;
+$color-background: #020202;
+$color-surface: #1e1e1e;
+$color-text-primary: #ffffff;
+$color-text-secondary: #b0b0b0;
+$color-border: #2c2c2c;
+$color-error: #e53935;
+
+/* Tipografía */
+$font-family: 'Roboto', sans-serif;
+$font-size-base: 16px;
+$font-size-small: 14px;
+$font-size-large: 18px;
+
+/* Espaciados */
+$spacing-unit: 8px;
+
+/* Sombras */
+$shadow-elevation-1: 0 1px 3px rgba(0, 0, 0, 0.2);
+$shadow-elevation-2: 0 4px 6px rgba(0, 0, 0, 0.3);
+
+/* Bordes */
+$border-radius: 8px;
+
+/* ===============================
+   Mixins
+================================= */
+
+@mixin center-flex {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@mixin responsive-font($min-size, $max-size) {
+  font-size: calc(#{$min-size} + (#{strip-unit($max-size) - strip-unit($min-size)} * ((100vw - 320px) / 680)));
+}
+
+/* ===============================
+   Estilos Globales
+================================= */
+
+body {
+  font-family: $font-family;
+  font-size: $font-size-base;
+  color: $color-text-primary;
+  background-color: $color-background;
+  margin: 0;
+  padding: 0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin: 0;
+  color: $color-text-primary;
+}
+
+p {
+  margin: 0 0 $spacing-unit 0;
+  line-height: 1.5;
+  color: $color-text-secondary;
+}
+
+a {
+  color: $color-primary;
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+/* ===============================
+   Medias querys
+================================= */
+
+@media (min-width: 768px) {
+  body {
+    font-size: $font-size-large;
+  }
+
+  .button {
+    padding: $spacing-unit * 1.5 $spacing-unit * 3;
+  }
+}

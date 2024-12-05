@@ -1,15 +1,32 @@
-<form (ngSubmit)="onSubmit()" #form="ngForm">
-  <label>
-    Pregunta 1:
-    <input type="text" name="pregunta1" [(ngModel)]="pregunta1" required />
-  </label>
-  <label>
-    Pregunta 2:
-    <input type="text" name="pregunta2" [(ngModel)]="pregunta2" required />
-  </label>
-  <label>
-    Pregunta 3:
-    <input type="text" name="pregunta3" [(ngModel)]="pregunta3" required />
-  </label>
-  <button type="submit" [disabled]="!form.valid">Siguiente</button>
+<form (ngSubmit)="onSubmit()" #form="ngForm" class="form-container">
+  <mat-card class="mat-elevation-z4">
+    <mat-card-header>
+      <mat-card-title>Formulario</mat-card-title>
+      <mat-card-subtitle>Responde las preguntas</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Pregunta 1</mat-label>
+        <input matInput type="text" name="pregunta1" [(ngModel)]="pregunta1" required />
+        <mat-error *ngIf="form.controls['pregunta1']?.invalid">Este campo es requerido</mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Pregunta 2</mat-label>
+        <input matInput type="text" name="pregunta2" [(ngModel)]="pregunta2" required />
+        <mat-error *ngIf="form.controls['pregunta2']?.invalid">Este campo es requerido</mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Pregunta 3</mat-label>
+        <input matInput type="text" name="pregunta3" [(ngModel)]="pregunta3" required />
+        <mat-error *ngIf="form.controls['pregunta3']?.invalid">Este campo es requerido</mat-error>
+      </mat-form-field>
+    </mat-card-content>
+    <mat-card-actions>
+      <button mat-raised-button color="primary" type="submit" [disabled]="!form.valid" class="full-width">
+        Siguiente
+      </button>
+    </mat-card-actions>
+  </mat-card>
 </form>
