@@ -1,6 +1,6 @@
-import { Component, Inject } from '@angular/core';
+import { HttpErrorResponse } from '@angular/common/http';
+import { Component, signal } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 
 @Component({
@@ -8,52 +8,38 @@ import { Router } from '@angular/router';
   standalone: false,
   templateUrl: './formulario-preguntas.component.html',
   styleUrl: './formulario-preguntas.component.scss',
+
 })
 export class FormularioPreguntasComponent {
-  courseForm: FormGroup;
+  passwordInputType: 'password' | 'text' = 'password';
+  loginForm: FormGroup;
+
 
   constructor(
     private formBuilder: FormBuilder,
-    @Inject(MAT_DIALOG_DATA) public data?: any
+    private router: Router
   ) {
-    this.courseForm = this.formBuilder.group({
-      profesor: [null, [Validators.required]],
-      commitee: [null, [Validators.required]],
-      course: [null, [Validators.required]],
-      startDate: [null, [Validators.required]],
-      endDate: [null, [Validators.required]],
+    this.loginForm = this.formBuilder.group({
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', [Validators.required]],
     });
-    this.patchFormValue();
   }
 
-  private get isEditing() {
-    return !!this.data?.editingCourse;
+  togglePasswordInputType(): void {
+
   }
 
-  patchFormValue() {
-    if (this.data?.editingCourse) {
-      const { startDate, endDate, ...otherData } = this.data.editingCourse;
+  login(): void {
 
-      this.courseForm.patchValue({
-        ...otherData,
-        startDate: this.formatDate(startDate),
-        endDate: this.formatDate(endDate)
-      });
-    }
   }
 
-  onSave(): void {
-    if (this.courseForm.invalid) {
-      this.courseForm.markAllAsTouched();
-    } else {
+  onSubmit(): void {
 
-    }
   }
 
-  private formatDate(date: Date | string): string {
-    if (!date) return '';
-    const d = new Date(date);
-    return d.toISOString().split('T')[0];
+  hide = signal(true);
+  clickEvent(event: MouseEvent) {
+    this.hide.set(!this.hide());
+    event.stopPropagation();
   }
-
 }

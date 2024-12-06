@@ -11,6 +11,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FormularioPreguntasComponent } from './components/formulario-preguntas/formulario-preguntas.component';
 import { FotosComponent } from './components/fotos/fotos.component';
 import { SpinnerComponent } from './components/spinner/spinner.component';
+import { MatInputModule } from '@angular/material/input';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,9 @@ import { SpinnerComponent } from './components/spinner/spinner.component';
     MatCardModule,
     MatFormFieldModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatFormFieldModule,
+    MatInputModule, MatButtonModule, MatIconModule
 
   ],
   exports: [

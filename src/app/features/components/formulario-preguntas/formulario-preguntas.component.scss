@@ -1,20 +1,5 @@
-.form-container {
+:host {
   display: flex;
-  justify-content: center;
-  padding: 1rem;
-}
-
-.mat-card {
-  width: 100%;
-  max-width: 400px;
-}
-
-.full-width {
-  width: 100%;
-}
-
-@media (max-width: 600px) {
-  .mat-card {
-    margin: 0 1rem;
-  }
+  flex-direction: column;
+  align-items: flex-start;
 }
