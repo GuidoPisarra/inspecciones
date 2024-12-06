@@ -8,6 +8,7 @@ import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { InicioComponent } from './features/components/inicio/inicio.component';
 import { FeatureModule } from "./features/feature.module";
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 
 @NgModule({
   declarations: [
@@ -19,8 +20,9 @@ import { FeatureModule } from "./features/feature.module";
     AppRoutingModule,
     StoreModule.forRoot(),
     EffectsModule.forRoot([]),
-    FeatureModule
-],
+    FeatureModule,
+    MatSlideToggleModule
+  ],
   providers: [
     provideAnimationsAsync(),
 

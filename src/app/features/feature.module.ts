@@ -12,6 +12,7 @@ import { FormularioPreguntasComponent } from './components/formulario-preguntas/
 import { FotosComponent } from './components/fotos/fotos.component';
 import { SpinnerComponent } from './components/spinner/spinner.component';
 import { MatInputModule } from '@angular/material/input';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,8 @@ import { MatInputModule } from '@angular/material/input';
     FormsModule,
     ReactiveFormsModule,
     MatFormFieldModule,
-    MatInputModule, MatButtonModule, MatIconModule
+    MatInputModule, MatButtonModule, MatIconModule,
+    MatSlideToggleModule
 
   ],
   exports: [
