@@ -13,7 +13,7 @@ export class CameraCaptureComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-    // Si necesitas configurar algo más cuando se inicializa el componente
+    this.startCamera();
   }
 
   capturePhoto() {
