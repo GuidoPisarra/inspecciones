@@ -7,9 +7,9 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./camera-capture.component.scss']
 })
 export class CameraCaptureComponent implements OnInit {
-  public photos: string[] = []; // Array de fotos capturadas
-  public maxPhotos: number = 5; // Número máximo de fotos permitidas
-  public currentPhotoIndex: number = 0; // Índice de la foto mostrada en el slider
+  public photos: string[] = [];
+  public maxPhotos: number = 5;
+  public currentPhotoIndex: number = 0;
 
   constructor() { }
 
@@ -23,14 +23,11 @@ export class CameraCaptureComponent implements OnInit {
       const canvas = document.createElement('canvas');
       const ctx = canvas.getContext('2d');
 
-      // Ajustar el tamaño del canvas al del video
       canvas.width = videoElement!.videoWidth;
       canvas.height = videoElement!.videoHeight;
 
-      // Dibujar la imagen del video en el canvas
       ctx!.drawImage(videoElement!, 0, 0, canvas.width, canvas.height);
 
-      // Convertir el canvas a una imagen
       const photo = canvas.toDataURL('image/jpeg');
       this.photos.push(photo);
     } else {
@@ -40,11 +37,8 @@ export class CameraCaptureComponent implements OnInit {
 
   /*   startCamera() {
       const videoElement = document.querySelector('video');
-
-      // Acceder a la cámara
       navigator.mediaDevices.getUserMedia({ video: true })
         .then((stream) => {
-          // Asignar el stream de la cámara al video
           if (videoElement) {
             videoElement.srcObject = stream;
           }
@@ -57,31 +51,25 @@ export class CameraCaptureComponent implements OnInit {
   startCamera() {
     const videoElement = document.querySelector('video');
 
-    // Obtener los dispositivos de medios (cámaras) disponibles
     navigator.mediaDevices.enumerateDevices()
       .then(devices => {
         const videoDevices = devices.filter(device => device.kind === 'videoinput'); // Filtramos solo las cámaras
-
-        // Buscar la cámara trasera en base a la propiedad 'label' o 'facingMode'
         const backCamera = videoDevices.find(device => device.label.toLowerCase().includes('back'));
 
-        // Definir los constraints iniciales con facingMode para preferir la cámara trasera
         let constraints: MediaStreamConstraints = {
           video: {
-            facingMode: { ideal: 'environment' } // Preferir la cámara trasera
+            facingMode: { ideal: 'environment' }
           }
         };
 
         if (backCamera) {
-          // Si encontramos la cámara trasera, la usamos directamente
           constraints = {
             video: {
-              deviceId: { exact: backCamera.deviceId } // Asignar el deviceId de la cámara trasera
+              deviceId: { exact: backCamera.deviceId }
             }
           };
         }
 
-        // Acceder a la cámara (trasera si la encontramos)
         navigator.mediaDevices.getUserMedia(constraints)
           .then((stream) => {
             if (videoElement) {
@@ -113,7 +101,6 @@ export class CameraCaptureComponent implements OnInit {
     this.photos = [];
   }
 
-  // Funciones para mover entre las fotos en el slider
   showNextPhoto() {
     if (this.currentPhotoIndex < this.photos.length - 1) {
       this.currentPhotoIndex++;

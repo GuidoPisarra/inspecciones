@@ -9,20 +9,20 @@ video {
   width: 100%;
   height: 100vh;
   object-fit: cover;
-  /* Hace que el video ocupe todo el espacio */
 }
 
 .photos-gallery {
   position: absolute;
   top: 20px;
   left: 0;
-  width: 150px;
+  width: 170px;
   display: flex;
   justify-content: center;
   align-items: center;
   overflow-x: auto;
   padding: 10px;
   z-index: 1;
+  transform: rotate(90deg);
 }
 
 .photo-slide {
@@ -37,13 +37,14 @@ video {
 
 .actions {
   position: absolute;
-  top: 20px;
+  top: 75vh;
   left: 50%;
   transform: translateX(-50%);
   z-index: 2;
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 150px;
+  transform: rotate(90deg);
 }
 
 button {
