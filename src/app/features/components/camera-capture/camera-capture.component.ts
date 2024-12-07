@@ -38,21 +38,60 @@ export class CameraCaptureComponent implements OnInit {
     }
   }
 
+  /*   startCamera() {
+      const videoElement = document.querySelector('video');
+  
+      // Acceder a la cámara
+      navigator.mediaDevices.getUserMedia({ video: true })
+        .then((stream) => {
+          // Asignar el stream de la cámara al video
+          if (videoElement) {
+            videoElement.srcObject = stream;
+          }
+        })
+        .catch((err) => {
+          console.error('Error al acceder a la cámara: ', err);
+        });
+    } */
   startCamera() {
     const videoElement = document.querySelector('video');
 
-    // Acceder a la cámara
-    navigator.mediaDevices.getUserMedia({ video: true })
-      .then((stream) => {
-        // Asignar el stream de la cámara al video
-        if (videoElement) {
-          videoElement.srcObject = stream;
+    // Obtener los dispositivos de medios (cámaras) disponibles
+    navigator.mediaDevices.enumerateDevices()
+      .then(devices => {
+        const videoDevices = devices.filter(device => device.kind === 'videoinput'); // Filtramos solo las cámaras
+
+        // Buscar la cámara trasera
+        const backCamera = videoDevices.find(device => device.label.toLowerCase().includes('back') || device.facing === 'environment');
+
+        if (backCamera) {
+          // Si encontramos la cámara trasera, la usamos
+          const constraints = {
+            video: {
+              deviceId: backCamera.deviceId,
+              facingMode: { ideal: 'environment' }  // Aseguramos que se usa la cámara trasera
+            }
+          };
+
+          // Acceder a la cámara trasera
+          navigator.mediaDevices.getUserMedia(constraints)
+            .then((stream) => {
+              if (videoElement) {
+                videoElement.srcObject = stream;
+              }
+            })
+            .catch((err) => {
+              console.error('Error al acceder a la cámara trasera: ', err);
+            });
+        } else {
+          console.error('No se encontró la cámara trasera.');
         }
       })
       .catch((err) => {
-        console.error('Error al acceder a la cámara: ', err);
+        console.error('Error al enumerar los dispositivos: ', err);
       });
   }
+
 
   stopCamera() {
     const videoElement = document.querySelector('video');
