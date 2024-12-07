@@ -4,11 +4,12 @@ import { Component, OnInit } from '@angular/core';
   selector: 'app-camera-capture',
   standalone: false,
   templateUrl: './camera-capture.component.html',
-  styleUrl: './camera-capture.component.scss'
+  styleUrls: ['./camera-capture.component.scss']
 })
 export class CameraCaptureComponent implements OnInit {
   public photos: string[] = []; // Array de fotos capturadas
   public maxPhotos: number = 5; // Número máximo de fotos permitidas
+  public currentPhotoIndex: number = 0; // Índice de la foto mostrada en el slider
 
   constructor() { }
 
@@ -65,4 +66,19 @@ export class CameraCaptureComponent implements OnInit {
   clearPhotos() {
     this.photos = [];
   }
+
+  // Funciones para mover entre las fotos en el slider
+  showNextPhoto() {
+    if (this.currentPhotoIndex < this.photos.length - 1) {
+      this.currentPhotoIndex++;
+    }
+  }
+
+  showPreviousPhoto() {
+    if (this.currentPhotoIndex > 0) {
+      this.currentPhotoIndex--;
+    }
+  }
+
+
 }
