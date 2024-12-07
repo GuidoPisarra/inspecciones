@@ -40,7 +40,7 @@ export class CameraCaptureComponent implements OnInit {
 
   /*   startCamera() {
       const videoElement = document.querySelector('video');
-  
+
       // Acceder a la cámara
       navigator.mediaDevices.getUserMedia({ video: true })
         .then((stream) => {
@@ -53,6 +53,7 @@ export class CameraCaptureComponent implements OnInit {
           console.error('Error al acceder a la cámara: ', err);
         });
     } */
+
   startCamera() {
     const videoElement = document.querySelector('video');
 
@@ -61,36 +62,42 @@ export class CameraCaptureComponent implements OnInit {
       .then(devices => {
         const videoDevices = devices.filter(device => device.kind === 'videoinput'); // Filtramos solo las cámaras
 
-        // Buscar la cámara trasera
-        const backCamera = videoDevices.find(device => device.label.toLowerCase().includes('back') || device.facing === 'environment');
+        // Buscar la cámara trasera en base a la propiedad 'label' o 'facingMode'
+        const backCamera = videoDevices.find(device => device.label.toLowerCase().includes('back'));
+
+        // Definir los constraints iniciales con facingMode para preferir la cámara trasera
+        let constraints: MediaStreamConstraints = {
+          video: {
+            facingMode: { ideal: 'environment' } // Preferir la cámara trasera
+          }
+        };
 
         if (backCamera) {
-          // Si encontramos la cámara trasera, la usamos
-          const constraints = {
+          // Si encontramos la cámara trasera, la usamos directamente
+          constraints = {
             video: {
-              deviceId: backCamera.deviceId,
-              facingMode: { ideal: 'environment' }  // Aseguramos que se usa la cámara trasera
+              deviceId: { exact: backCamera.deviceId } // Asignar el deviceId de la cámara trasera
             }
           };
-
-          // Acceder a la cámara trasera
-          navigator.mediaDevices.getUserMedia(constraints)
-            .then((stream) => {
-              if (videoElement) {
-                videoElement.srcObject = stream;
-              }
-            })
-            .catch((err) => {
-              console.error('Error al acceder a la cámara trasera: ', err);
-            });
-        } else {
-          console.error('No se encontró la cámara trasera.');
         }
+
+        // Acceder a la cámara (trasera si la encontramos)
+        navigator.mediaDevices.getUserMedia(constraints)
+          .then((stream) => {
+            if (videoElement) {
+              videoElement.srcObject = stream;
+            }
+          })
+          .catch((err) => {
+            console.error('Error al acceder a la cámara: ', err);
+          });
       })
       .catch((err) => {
         console.error('Error al enumerar los dispositivos: ', err);
       });
   }
+
+
 
 
   stopCamera() {
