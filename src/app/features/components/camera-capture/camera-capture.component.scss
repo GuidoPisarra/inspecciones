@@ -23,6 +23,7 @@ video {
   padding: 10px;
   z-index: 1;
   transform: rotate(90deg);
+  /* Rotar en portrait */
 }
 
 .photo-slide {
@@ -89,8 +90,8 @@ button:hover {
   position: absolute;
   top: 15%;
   left: 5%;
-  width: 100%;
-  height: 60%;
+  width: 90%;
+  height: 80%;
   pointer-events: none;
   z-index: 10;
   transform: rotate(90deg);
@@ -101,4 +102,77 @@ button:hover {
   height: 100%;
   object-fit: contain;
   opacity: 0.5;
+}
+
+@media screen and (orientation: portrait) {
+  .camera-container {
+    width: 100%;
+    height: 100vh;
+  }
+
+  .photos-gallery {
+    transform: rotate(90deg);
+    top: 20px;
+    left: 0;
+    width: 170px;
+  }
+
+  .actions {
+    transform: rotate(90deg);
+    top: 75vh;
+    left: 40%;
+    gap: 150px;
+  }
+
+  .slider-controls {
+    transform: translate(-50%, -50%) rotate(90deg);
+  }
+
+  .overlay {
+    position: absolute;
+    top: -5%;
+    left: -20%;
+    width: 135%;
+    height: 104%;
+    pointer-events: none;
+    z-index: 10;
+    transform: rotate(90deg);
+  }
+}
+
+/* Bloquear la orientación de la pantalla en modo horizontal (landscape) */
+@media screen and (orientation: landscape) {
+  .camera-container {
+    width: 100%;
+    height: 100vh;
+  }
+
+  .photos-gallery {
+    transform: rotate(0deg);
+    top: 20px;
+    left: 0;
+    width: 170px;
+  }
+
+  .actions {
+    transform: rotate(0deg);
+    top: 15vh;
+    left: 80%;
+    gap: 150px;
+  }
+
+  .slider-controls {
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+
+  .overlay {
+    position: absolute;
+    top: 15%;
+    left: 5%;
+    width: 90%;
+    height: 80%;
+    pointer-events: none;
+    z-index: 10;
+    transform: rotate(0deg);
+  }
 }
