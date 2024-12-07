@@ -42,4 +42,8 @@ export class FormularioPreguntasComponent {
     this.hide.set(!this.hide());
     event.stopPropagation();
   }
+
+  goToCameraCapture() {
+    this.router.navigate(['/camera-capture']);  // Redirige a la ruta de captura de fotos
+  }
 }

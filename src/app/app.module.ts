@@ -9,11 +9,13 @@ import { EffectsModule } from '@ngrx/effects';
 import { InicioComponent } from './features/components/inicio/inicio.component';
 import { FeatureModule } from "./features/feature.module";
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { CameraCaptureComponent } from './features/components/camera-capture/camera-capture.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     InicioComponent
+
   ],
   imports: [
     BrowserModule,

@@ -37,32 +37,36 @@
 
 .form-title {
   margin-top: 15px;
-  margin-bottom: 100px !important;
+  margin-bottom: 50px;
   text-align: center;
   font-size: 37px;
   font-weight: 600;
   z-index: 3;
 }
 
-.mat-form-field {
+.form-field {
   width: 100%;
+  margin-bottom: 20px;
 }
 
-.mat-form-field-label {
+.field-label {
   font-size: 18px;
   font-weight: bold;
-}
-
-/* Estilos específicos de los campos input y textarea */
-input.mat-input-element,
-textarea.mat-input-element {
-  padding: 30px;
-  font-size: 14px;
+  display: block;
+  margin-bottom: 8px;
+  color: #fff;
 }
 
 .input-km,
 .input-textarea {
   width: 100%;
+  font-size: 14px;
+  border: none;
+  border-bottom: 1px solid #ccc;
+  border-radius: 4px;
+  background-color: transparent;
+  color: var(--color-text-primary);
+  box-sizing: border-box;
 }
 
 .input-km {
@@ -71,8 +75,10 @@ textarea.mat-input-element {
 
 .input-textarea {
   min-height: 100px;
+  resize: vertical;
 }
 
+/* Estilo para el switch */
 .switch-container {
   display: flex;
   align-items: center;
@@ -128,5 +134,6 @@ input:checked+.slider {
 }
 
 input:checked+.slider:before {
+
   transform: translateX(22px);
 }

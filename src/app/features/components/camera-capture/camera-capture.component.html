@@ -1,0 +1,20 @@
+<div class="camera-container">
+  <h2>Captura de fotos</h2>
+
+  <video width="100%" height="auto" autoplay></video>
+  <div *ngIf="photos.length > 0">
+    <h3>Fotos tomadas:</h3>
+    <div class="photos-gallery">
+      <div *ngFor="let photo of photos">
+        <img [src]="photo" width="100" height="auto">
+      </div>
+    </div>
+  </div>
+
+  <button (click)="capturePhoto()">Capturar Foto</button>
+  <button (click)="clearPhotos()">Limpiar Fotos</button>
+
+  <div class="actions">
+    <button (click)="stopCamera()">Detener Cámara</button>
+  </div>
+</div>

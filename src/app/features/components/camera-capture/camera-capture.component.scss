@@ -1,0 +1,29 @@
+.camera-container {
+    text-align: center;
+}
+
+.photos-gallery {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.photos-gallery div {
+    margin: 5px;
+}
+
+button {
+    margin-top: 15px;
+    padding: 10px;
+    font-size: 16px;
+    background-color: #CE205F;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #4caf50;
+}

@@ -2,10 +2,10 @@
   <form class="formulario">
     <div class="form-title">Datos del vehículo</div>
 
-    <mat-form-field class="full-width">
-      <mat-label>Kilometraje</mat-label>
-      <input matInput class="input-km">
-    </mat-form-field>
+    <div class="form-field">
+      <label for="kilometraje" class="field-label">Kilometraje</label>
+      <input type="text" id="kilometraje" class="input-km" placeholder="Ingrese el kilometraje">
+    </div>
 
     <div class="switch-container">
       <span class="switch-text">¿Tiene VTV?</span>
@@ -15,9 +15,11 @@
       </label>
     </div>
 
-    <mat-form-field class="full-width">
-      <mat-label>Textarea</mat-label>
-      <textarea matInput class="input-textarea"></textarea>
-    </mat-form-field>
+    <div class="form-field">
+      <label for="carta-daño" class="field-label">Carta de daño</label>
+      <textarea id="carta-daño" class="input-textarea" placeholder="Describa el daño"></textarea>
+    </div>
+    <button (click)="goToCameraCapture()">Continuar</button>
   </form>
+
 </div>
