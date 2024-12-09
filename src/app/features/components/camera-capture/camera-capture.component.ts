@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import * as cocoSsd from '@tensorflow-models/coco-ssd';
+import '@tensorflow/tfjs';
 
 @Component({
   selector: 'app-camera-capture',
@@ -23,17 +25,29 @@ export class CameraCaptureComponent implements OnInit {
       const canvas = document.createElement('canvas');
       const ctx = canvas.getContext('2d');
 
-      canvas.width = videoElement!.videoWidth;
-      canvas.height = videoElement!.videoHeight;
+      if (!videoElement || !ctx) {
+        console.error('No se pudo capturar la foto: elemento o contexto no disponible.');
+        return;
+      }
 
-      ctx!.drawImage(videoElement!, 0, 0, canvas.width, canvas.height);
+      // Ajustar el tamaño del canvas al tamaño del video
+      canvas.width = videoElement.videoWidth;
+      canvas.height = videoElement.videoHeight;
 
+      // Dibujar la imagen del video en el canvas
+      ctx.drawImage(videoElement, 0, 0, canvas.width, canvas.height);
+
+      // Obtener la imagen como base64
       const photo = canvas.toDataURL('image/jpeg');
       this.photos.push(photo);
+
+      // Analizar la imagen capturada con COCO-SSD
+      this.analyzePhoto(canvas);
     } else {
       alert('Has alcanzado el límite de fotos.');
     }
   }
+
 
   /*   startCamera() {
       const videoElement = document.querySelector('video');
@@ -113,5 +127,32 @@ export class CameraCaptureComponent implements OnInit {
     }
   }
 
+
+
+  analyzePhoto(canvas: HTMLCanvasElement) {
+    cocoSsd.load().then((model) => {
+      model.detect(canvas).then((predictions) => {
+        if (predictions.length === 0) {
+          alert('No se detectaron objetos en la foto.');
+          return;
+        }
+
+        let alertMessage = 'Objetos detectados:\n';
+
+        predictions.forEach((prediction, index) => {
+          alertMessage += `\nObjeto ${index + 1}:\n`;
+          alertMessage += `- Clase: ${prediction.class}\n`;
+          alertMessage += `- Confianza: ${(prediction.score * 100).toFixed(2)}%\n`;
+          alertMessage += `- Rectángulo: [${prediction.bbox.join(', ')}]\n`;
+        });
+
+        alert(alertMessage);
+      }).catch((err) => {
+        alert('Error al analizar la foto: ' + err.message);
+      });
+    }).catch((err) => {
+      alert('Error al cargar el modelo COCO-SSD: ' + err.message);
+    });
+  }
 
 }
