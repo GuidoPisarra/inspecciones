@@ -136,8 +136,9 @@ export class CameraCaptureComponent implements OnInit {
           const nuevaImagen = new ImagenVehiculo(file, confianza, prediction.class);
           if (nuevaImagen.esValida()) {
             this.imagenesVehiculo.push(nuevaImagen);
+            alert(`La imagen . ${confianza} ${prediction.class}`);
           } else {
-            alert('La imagen no corresponde a un vehículo.');
+            alert(`La imagen no corresponde a un vehículo. ${confianza} ${prediction.class}`);
             return;
           }
         });

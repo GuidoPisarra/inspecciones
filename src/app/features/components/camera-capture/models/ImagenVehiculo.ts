@@ -2,8 +2,8 @@ export class ImagenVehiculo {
   protected archivo?: File;
   protected confianza?: number;
   protected clase?: string;
-  //const IMAGEN_A_DETECTAR = 'car';
-  private IMAGEN_A_DETECTAR: string = 'person';
+  private IMAGEN_A_DETECTAR = 'car';
+  //private IMAGEN_A_DETECTAR: string = 'person';
 
   constructor(archivoNew: File, confianzaNew: number, claseNew: string) {
     this.archivo = archivoNew;
