@@ -128,7 +128,7 @@ export class CameraCaptureComponent implements OnInit {
       })
       .then((predictions) => {
         if (predictions.length === 0) {
-          alert('No se detectaron objetos en la foto.');
+          alert('No se detectaron objetos en la fotooooooooooooooo.');
           return;
         }
         predictions.forEach((prediction) => {
