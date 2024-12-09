@@ -17,7 +17,20 @@ export class CameraCaptureComponent implements OnInit {
 
   ngOnInit(): void {
     this.startCamera();
+    this.loadModel();
   }
+
+  async loadModel() {
+    try {
+      const model = await cocoSsd.load();
+      alert('Modelo cargado correctamente');
+      console.log('Modelo:', model);
+    } catch (error) {
+      alert('Error al cargar el modelo');
+      console.error('Error:', error);
+    }
+  }
+
 
   capturePhoto() {
     if (this.photos.length < this.maxPhotos) {
