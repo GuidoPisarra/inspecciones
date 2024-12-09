@@ -16,8 +16,8 @@ export class CameraCaptureComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-    this.startCamera();
     this.loadModel();
+    this.startCamera();
   }
 
   async loadModel() {
