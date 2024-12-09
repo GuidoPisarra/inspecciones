@@ -80,7 +80,8 @@ export class CameraCaptureComponent implements OnInit {
 
     navigator.mediaDevices.enumerateDevices()
       .then(devices => {
-        const videoDevices = devices.filter(device => device.kind === 'videoinput'); // Filtramos solo las cámaras
+        // Filtra las cámaras
+        const videoDevices = devices.filter(device => device.kind === 'videoinput');
         const backCamera = videoDevices.find(device => device.label.toLowerCase().includes('back'));
 
         let constraints: MediaStreamConstraints = {
@@ -128,7 +129,7 @@ export class CameraCaptureComponent implements OnInit {
       })
       .then((predictions) => {
         if (predictions.length === 0) {
-          alert('No se detectaron objetos en la fotooooooooooooooo.');
+          alert('No se detectaron objetos en la foto.');
           return;
         }
         predictions.forEach((prediction) => {
