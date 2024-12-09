@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import * as cocoSsd from '@tensorflow-models/coco-ssd';
 import '@tensorflow/tfjs';
+import { ImagenVehiculo } from './models/ImagenVehiculo';
 
 @Component({
   selector: 'app-camera-capture',
@@ -12,6 +13,7 @@ export class CameraCaptureComponent implements OnInit {
   public photos: string[] = [];
   public maxPhotos: number = 5;
   public currentPhotoIndex: number = 0;
+  protected imagenesVehiculo: ImagenVehiculo[] = [];
 
   constructor() { }
 
@@ -24,11 +26,21 @@ export class CameraCaptureComponent implements OnInit {
     try {
       const model = await cocoSsd.load();
       alert('Modelo cargado correctamente');
-      console.log('Modelo:', model);
     } catch (error) {
       alert('Error al cargar el modelo');
-      console.error('Error:', error);
     }
+  }
+
+  base64ToFile(dataUrl: string, filename: string): File {
+    const arr = dataUrl.split(',');
+    const mime = arr[0].match(/:(.*?);/)![1];
+    const bstr = atob(arr[1]);
+    let n = bstr.length;
+    const u8arr = new Uint8Array(n);
+    while (n--) {
+      u8arr[n] = bstr.charCodeAt(n);
+    }
+    return new File([u8arr], filename, { type: mime });
   }
 
 
@@ -43,37 +55,25 @@ export class CameraCaptureComponent implements OnInit {
         return;
       }
 
-      // Ajustar el tamaño del canvas al tamaño del video
       canvas.width = videoElement.videoWidth;
       canvas.height = videoElement.videoHeight;
 
-      // Dibujar la imagen del video en el canvas
+      // crear canvas
       ctx.drawImage(videoElement, 0, 0, canvas.width, canvas.height);
 
-      // Obtener la imagen como base64
+      // convertir base64
       const photo = canvas.toDataURL('image/jpeg');
       this.photos.push(photo);
 
-      // Analizar la imagen capturada con COCO-SSD
-      this.analyzePhoto(canvas);
+      // Convertir a file
+      const file = this.base64ToFile(photo, 'captured_photo.jpg');
+
+      // Analizar la imagen
+      this.analyzePhoto(canvas, file);
     } else {
       alert('Has alcanzado el límite de fotos.');
     }
   }
-
-
-  /*   startCamera() {
-      const videoElement = document.querySelector('video');
-      navigator.mediaDevices.getUserMedia({ video: true })
-        .then((stream) => {
-          if (videoElement) {
-            videoElement.srcObject = stream;
-          }
-        })
-        .catch((err) => {
-          console.error('Error al acceder a la cámara: ', err);
-        });
-    } */
 
   startCamera() {
     const videoElement = document.querySelector('video');
@@ -112,9 +112,6 @@ export class CameraCaptureComponent implements OnInit {
       });
   }
 
-
-
-
   stopCamera() {
     const videoElement = document.querySelector('video');
     const stream = videoElement!.srcObject as MediaStream;
@@ -124,48 +121,47 @@ export class CameraCaptureComponent implements OnInit {
     videoElement!.srcObject = null;
   }
 
-  clearPhotos() {
+  analyzePhoto(canvas: HTMLCanvasElement, file: File) {
+    cocoSsd.load()
+      .then((model) => {
+        return model.detect(canvas);
+      })
+      .then((predictions) => {
+        if (predictions.length === 0) {
+          alert('No se detectaron objetos en la foto.');
+          return;
+        }
+        predictions.forEach((prediction) => {
+          const confianza = parseFloat((prediction.score * 100).toFixed(2));
+          const nuevaImagen = new ImagenVehiculo(file, confianza, prediction.class);
+          if (nuevaImagen.esValida()) {
+            this.imagenesVehiculo.push(nuevaImagen);
+
+          }
+        });
+
+        console.log('Imágenes y datos guardados:', this.imagenesVehiculo);
+      })
+      .catch((error) => {
+        console.error('Error durante la detección de objetos:', error);
+        alert(`Ocurrió un error al analizar la imagen: ${error.message || error}`);
+      });
+  }
+
+  protected clearPhotos() {
     this.photos = [];
   }
 
-  showNextPhoto() {
+  protected showNextPhoto() {
     if (this.currentPhotoIndex < this.photos.length - 1) {
       this.currentPhotoIndex++;
     }
   }
 
-  showPreviousPhoto() {
+  protected showPreviousPhoto() {
     if (this.currentPhotoIndex > 0) {
       this.currentPhotoIndex--;
     }
-  }
-
-
-
-  analyzePhoto(canvas: HTMLCanvasElement) {
-    cocoSsd.load().then((model) => {
-      model.detect(canvas).then((predictions) => {
-        if (predictions.length === 0) {
-          alert('No se detectaron objetos en la foto.');
-          return;
-        }
-
-        let alertMessage = 'Objetos detectados:\n';
-
-        predictions.forEach((prediction, index) => {
-          alertMessage += `\nObjeto ${index + 1}:\n`;
-          alertMessage += `- Clase: ${prediction.class}\n`;
-          alertMessage += `- Confianza: ${(prediction.score * 100).toFixed(2)}%\n`;
-          alertMessage += `- Rectángulo: [${prediction.bbox.join(', ')}]\n`;
-        });
-
-        alert(alertMessage);
-      }).catch((err) => {
-        alert('Error al analizar la foto: ' + err.message);
-      });
-    }).catch((err) => {
-      alert('Error al cargar el modelo COCO-SSD: ' + err.message);
-    });
   }
 
 }
