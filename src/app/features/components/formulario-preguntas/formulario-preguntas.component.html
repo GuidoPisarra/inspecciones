@@ -15,11 +15,18 @@
       </label>
     </div>
 
+
+
+
     <div class="form-field">
       <label for="carta-daño" class="field-label">Carta de daño</label>
-      <textarea id="carta-daño" class="input-textarea" placeholder="Describa el daño"></textarea>
+      <textarea id="carta-daño" class="input-textarea" placeholder="Describa el daño" [(ngModel)]="cartaDanio"
+        name="cartaDanio" maxlength="250"></textarea>
+      <div class="char-count">
+        <span>{{ 250 - cartaDanio.length }} caracteres restantes</span>
+      </div>
     </div>
-    <button (click)="goToCameraCapture()">Continuar</button>
+    <button class="btn-continuar" (click)="goToCameraCapture()">Continuar</button>
   </form>
 
 </div>

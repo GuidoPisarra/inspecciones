@@ -13,7 +13,7 @@ import { Router } from '@angular/router';
 export class FormularioPreguntasComponent {
   passwordInputType: 'password' | 'text' = 'password';
   loginForm: FormGroup;
-
+  cartaDanio: string = '';
 
   constructor(
     private formBuilder: FormBuilder,
