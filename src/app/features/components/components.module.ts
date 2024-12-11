@@ -5,12 +5,14 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
-
 import { SpinnerModule } from './spinner/spinner.module';
 import { SharedModule } from '../../shared/shared.module';
 import { MatCardModule } from '@angular/material/card';
+import { SpinnerMaxScreenModule } from './spinner-max-screen/spinner-max-screen.module';
+
 @NgModule({
-  declarations: [],
+  declarations: [
+  ],
   imports: [
     CommonModule,
     MatSidenavModule,
@@ -20,7 +22,8 @@ import { MatCardModule } from '@angular/material/card';
     MatIconModule,
     SpinnerModule,
     SharedModule,
-    MatCardModule
+    MatCardModule,
+    SpinnerMaxScreenModule
   ],
   exports: [],
 })

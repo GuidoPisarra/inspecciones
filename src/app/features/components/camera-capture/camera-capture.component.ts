@@ -14,6 +14,7 @@ export class CameraCaptureComponent implements OnInit {
   public maxPhotos: number = 5;
   public currentPhotoIndex: number = 0;
   protected imagenesVehiculo: ImagenVehiculo[] = [];
+  protected cargando: boolean = true;
 
   constructor() { }
 
@@ -24,10 +25,12 @@ export class CameraCaptureComponent implements OnInit {
 
   async loadModel() {
     try {
+      this.cargando = true;
       const model = await cocoSsd.load();
-      alert('Modelo cargado correctamente');
+      this.cargando = false;
     } catch (error) {
       alert('Error al cargar el modelo');
+      this.cargando = false;
     }
   }
 

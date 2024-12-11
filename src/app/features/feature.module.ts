@@ -14,13 +14,15 @@ import { SpinnerComponent } from './components/spinner/spinner.component';
 import { MatInputModule } from '@angular/material/input';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { CameraCaptureComponent } from './components/camera-capture/camera-capture.component';
+import { SpinnerMaxScreenComponent } from './components/spinner-max-screen/spinner-max-screen.component';
 
 @NgModule({
   declarations: [
     FormularioPreguntasComponent,
     FotosComponent,
     SpinnerComponent,
-    CameraCaptureComponent
+    CameraCaptureComponent,
+    SpinnerMaxScreenComponent
   ],
   imports: [
     CommonModule,
