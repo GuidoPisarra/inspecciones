@@ -22,7 +22,9 @@
   </div>
 
   <div class="actions">
-    <button (click)="capturePhoto()">Capturar Foto</button>
+    <button (click)="capturePhoto()" class="btn-tomar-foto">
+      <img src="assets/images/camera-shutter.png" alt="Obturador" class="overlay-img camera-shutter">
+    </button>
     <button (click)="clearPhotos()">Limpiar Fotos</button>
   </div>
 </div>
