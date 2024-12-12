@@ -1,4 +1,3 @@
-import { HttpErrorResponse } from '@angular/common/http';
 import { Component, signal } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -11,39 +10,30 @@ import { Router } from '@angular/router';
 
 })
 export class FormularioPreguntasComponent {
-  passwordInputType: 'password' | 'text' = 'password';
-  loginForm: FormGroup;
+  formulario: FormGroup;
   cartaDanio: string = '';
 
   constructor(
     private formBuilder: FormBuilder,
     private router: Router
   ) {
-    this.loginForm = this.formBuilder.group({
-      email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required]],
+    this.formulario = this.formBuilder.group({
+      kilometraje: ['', Validators.required],
+      cartaDanio: ['', Validators.required],
     });
-  }
-
-  togglePasswordInputType(): void {
 
   }
 
-  login(): void {
-
-  }
-
-  onSubmit(): void {
-
-  }
-
-  hide = signal(true);
-  clickEvent(event: MouseEvent) {
-    this.hide.set(!this.hide());
-    event.stopPropagation();
-  }
 
   goToCameraCapture() {
-    this.router.navigate(['/camera-capture']);  // Redirige a la ruta de captura de fotos
+    this.markAllAsTouched();
+    if (this.formulario.valid) {
+      this.router.navigate(['/camera-capture']);
+    }
+  }
+  markAllAsTouched() {
+    Object.keys(this.formulario.controls).forEach(field => {
+      const control = this.formulario.get(field); control?.markAsTouched({ onlySelf: true });
+    });
   }
 }

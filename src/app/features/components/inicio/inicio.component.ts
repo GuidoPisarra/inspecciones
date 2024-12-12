@@ -16,11 +16,13 @@ export class InicioComponent {
   ) { }
 
   start(): void {
-    this.autoImage = 'assets/images/auto-detras.png';
-    this.cargando = true;
-    setTimeout(() => {
-      this.cargando = false;
-      this.route.navigate(['/formulario'])
-    }, 3000)
+    if (!this.cargando) {
+      this.autoImage = 'assets/images/auto-detras.png';
+      this.cargando = true;
+      setTimeout(() => {
+        this.cargando = false;
+        this.route.navigate(['/formulario'])
+      }, 3000)
+    }
   }
 }

@@ -154,7 +154,14 @@ input:checked+.slider:before {
 }
 
 .char-count {
-  font-size: 12px;
+  font-size: 16px;
   color: #999;
+  margin-top: 5px;
+}
+
+/*  Estilo error */
+.error {
+  color: #CE205F;
+  font-size: 20px;
   margin-top: 5px;
 }

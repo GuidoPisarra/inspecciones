@@ -1,10 +1,15 @@
 <div class="container">
-  <form class="formulario">
+  <form [formGroup]="formulario" class="formulario" (ngSubmit)="goToCameraCapture()">
     <div class="form-title">Datos del vehículo</div>
 
     <div class="form-field">
       <label for="kilometraje" class="field-label">Kilometraje</label>
-      <input type="text" id="kilometraje" class="input-km" placeholder="Ingrese el kilometraje">
+      <input type="number" id="kilometraje" class="input-km" formControlName="kilometraje"
+        placeholder="Ingrese el kilometraje">
+      <div *ngIf="formulario.get('kilometraje')?.touched && formulario.get('kilometraje')?.hasError('required')"
+        class="error">
+        Campo requerido
+      </div>
     </div>
 
     <div class="switch-container">
@@ -15,18 +20,18 @@
       </label>
     </div>
 
-
-
-
     <div class="form-field">
       <label for="carta-daño" class="field-label">Carta de daño</label>
-      <textarea id="carta-daño" class="input-textarea" placeholder="Describa el daño" [(ngModel)]="cartaDanio"
-        name="cartaDanio" maxlength="250"></textarea>
+      <textarea id="carta-daño" class="input-textarea" formControlName="cartaDanio" placeholder="Describa el daño"
+        [(ngModel)]="cartaDanio" name="cartaDanio" maxlength="250"></textarea>
       <div class="char-count">
         <span>{{ 250 - cartaDanio.length }} caracteres restantes</span>
       </div>
+      <div *ngIf="formulario.get('cartaDanio')?.touched && formulario.get('cartaDanio')?.hasError('required')"
+        class="error">
+        Campo requerido
+      </div>
     </div>
-    <button class="btn-continuar" (click)="goToCameraCapture()">Continuar</button>
+    <button type="submit" class="btn-continuar">Continuar</button>
   </form>
-
 </div>
