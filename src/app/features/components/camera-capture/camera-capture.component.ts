@@ -10,7 +10,7 @@ import { ImagenVehiculo } from './models/ImagenVehiculo';
   styleUrls: ['./camera-capture.component.scss']
 })
 export class CameraCaptureComponent implements OnInit {
-  public photos: string[] = [];
+  public photos: string[] = ['a', 'b', 'c', 'd', 'e'];
   public maxPhotos: number = 5;
   public currentPhotoIndex: number = 0;
   protected imagenesVehiculo: ImagenVehiculo[] = [];

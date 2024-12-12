@@ -9,7 +9,6 @@ import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FormularioPreguntasComponent } from './components/formulario-preguntas/formulario-preguntas.component';
-import { FotosComponent } from './components/fotos/fotos.component';
 import { SpinnerComponent } from './components/spinner/spinner.component';
 import { MatInputModule } from '@angular/material/input';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
@@ -19,7 +18,6 @@ import { SpinnerMaxScreenComponent } from './components/spinner-max-screen/spinn
 @NgModule({
   declarations: [
     FormularioPreguntasComponent,
-    FotosComponent,
     SpinnerComponent,
     CameraCaptureComponent,
     SpinnerMaxScreenComponent
