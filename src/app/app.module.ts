@@ -9,7 +9,11 @@ import { EffectsModule } from '@ngrx/effects';
 import { InicioComponent } from './features/components/inicio/inicio.component';
 import { FeatureModule } from "./features/feature.module";
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
-import { CameraCaptureComponent } from './features/components/camera-capture/camera-capture.component';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { ImagenVehiculoEffects } from './features/components/camera-capture/store/effects/imagen-vehiculo.effects';
+import { RootReducer } from './features/components/camera-capture/store';
+import { environment } from '../environments/environment';
+
 
 @NgModule({
   declarations: [
@@ -20,14 +24,14 @@ import { CameraCaptureComponent } from './features/components/camera-capture/cam
   imports: [
     BrowserModule,
     AppRoutingModule,
-    StoreModule.forRoot(),
-    EffectsModule.forRoot([]),
+    StoreModule.forRoot(RootReducer, {}),
+    EffectsModule.forRoot([ImagenVehiculoEffects]),
+    StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production }),
     FeatureModule,
     MatSlideToggleModule
   ],
   providers: [
     provideAnimationsAsync(),
-
     provideHttpClient(withFetch())],
   bootstrap: [AppComponent],
 

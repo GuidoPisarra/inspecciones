@@ -8,7 +8,7 @@ import { ImagenVehiculoActions } from './../actions/imagen-vehiculo.actions';
 
 
 @Injectable()
-export class CoursesEffects {
+export class ImagenVehiculoEffects {
 
 
   loadImagenesVehiculo$: Actions<Action<string>>;

@@ -9,7 +9,6 @@ import { MatButtonModule } from '@angular/material/button';
   exports: [
     MatCardModule,
     MatButtonModule,
-
   ],
 
 })

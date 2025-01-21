@@ -3,7 +3,7 @@ import { ImagenVehiculo } from '../../models/ImagenVehiculo';
 import { ImagenVehiculoActions } from '../actions/imagen-vehiculo.actions';
 
 
-export const courseFeatureKey = 'course';
+export const imagenVehiculoFeatureName = 'imagenVehiculo';
 
 export interface State {
   imagenes: ImagenVehiculo[];
@@ -66,6 +66,6 @@ export const reducer = createReducer(
 );
 
 export const ImagenVehiculoFeature = createFeature({
-  name: courseFeatureKey,
+  name: imagenVehiculoFeatureName,
   reducer
 });

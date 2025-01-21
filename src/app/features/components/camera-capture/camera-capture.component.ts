@@ -3,6 +3,8 @@ import * as cocoSsd from '@tensorflow-models/coco-ssd';
 import '@tensorflow/tfjs';
 import { ImagenVehiculo } from './models/ImagenVehiculo';
 import { Router } from '@angular/router';
+import { Store } from '@ngrx/store';
+import { ImagenVehiculoActions } from './store/actions/imagen-vehiculo.actions';
 
 @Component({
   selector: 'app-camera-capture',
@@ -18,7 +20,9 @@ export class CameraCaptureComponent implements OnInit {
   protected cargando: boolean = true;
 
   constructor(
-    private router: Router
+    private router: Router,
+    private store: Store
+
   ) { }
 
   ngOnInit(): void {
@@ -77,6 +81,7 @@ export class CameraCaptureComponent implements OnInit {
 
       // Analizar la imagen
       this.analyzePhoto(canvas, file);
+
     } else {
       alert('Has alcanzado el límite de fotos.');
     }
@@ -144,9 +149,13 @@ export class CameraCaptureComponent implements OnInit {
           const nuevaImagen = new ImagenVehiculo(file, confianza, prediction.class);
           if (nuevaImagen.esValida()) {
             this.imagenesVehiculo.push(nuevaImagen);
+            this.store.dispatch(ImagenVehiculoActions.createImagenVehiculo({ photo: nuevaImagen }));
+
             console.log(`La imagen . ${confianza} ${prediction.class}`);
           } else {
             this.imagenesVehiculo.push(nuevaImagen);
+            this.store.dispatch(ImagenVehiculoActions.createImagenVehiculo({ photo: nuevaImagen }));
+
             console.log(`La imagen no corresponde a un vehículo. ${confianza} ${prediction.class}`);
             return;
           }
@@ -188,17 +197,9 @@ export class CameraCaptureComponent implements OnInit {
   }
 
   protected continue(): void {
-    console.log(this.imagenesVehiculo);
-
     if (this.imagenesVehiculo.length > 0) {
-      console.log('object');
-      this.router.navigate(['/finish'], {
-        state: {
-          imagenesVehiculo: this.imagenesVehiculo
-        }
-      });
-
+      this.router.navigate(['/finish']);
     }
-
   }
+
 }
