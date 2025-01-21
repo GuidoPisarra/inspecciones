@@ -1,7 +1,7 @@
 <div class="container">
   <h2>Imágenes Capturadas</h2>
-  <div class="card-container" *ngIf="imagenesVehiculo$ | async as imagenesVehiculo">
-    <div *ngFor="let imagen of imagenesVehiculo" class="card">
+  <div class="card-container">
+    <div *ngFor=" let imagen of imagenesVehiculo$ " class="card">
       <img class="card-image" [src]="imagen.url" alt="Imagen Vehículo">
       <div class="card-content">
         <p>Confianza: {{ imagen.confianza }}%</p>
