@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import * as cocoSsd from '@tensorflow-models/coco-ssd';
 import '@tensorflow/tfjs';
 import { ImagenVehiculo } from './models/ImagenVehiculo';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-camera-capture',
@@ -16,11 +17,14 @@ export class CameraCaptureComponent implements OnInit {
   protected imagenesVehiculo: ImagenVehiculo[] = [];
   protected cargando: boolean = true;
 
-  constructor() { }
+  constructor(
+    private router: Router
+  ) { }
 
   ngOnInit(): void {
     this.loadModel();
     this.startCamera();
+    this.enableFullscreen();
   }
 
   async loadModel() {
@@ -132,7 +136,7 @@ export class CameraCaptureComponent implements OnInit {
       })
       .then((predictions) => {
         if (predictions.length === 0) {
-          alert('No se detectaron objetos en la foto.');
+          console.log('No se detectaron objetos en la foto.');
           return;
         }
         predictions.forEach((prediction) => {
@@ -140,9 +144,10 @@ export class CameraCaptureComponent implements OnInit {
           const nuevaImagen = new ImagenVehiculo(file, confianza, prediction.class);
           if (nuevaImagen.esValida()) {
             this.imagenesVehiculo.push(nuevaImagen);
-            alert(`La imagen . ${confianza} ${prediction.class}`);
+            console.log(`La imagen . ${confianza} ${prediction.class}`);
           } else {
-            alert(`La imagen no corresponde a un vehículo. ${confianza} ${prediction.class}`);
+            this.imagenesVehiculo.push(nuevaImagen);
+            console.log(`La imagen no corresponde a un vehículo. ${confianza} ${prediction.class}`);
             return;
           }
         });
@@ -171,4 +176,29 @@ export class CameraCaptureComponent implements OnInit {
     }
   }
 
+  protected enableFullscreen(): void {
+    const element = document.documentElement;
+    if (element.requestFullscreen) {
+      element.requestFullscreen();
+    } else if ((element as any).webkitRequestFullscreen) {
+      (element as any).webkitRequestFullscreen();
+    } else if ((element as any).msRequestFullscreen) {
+      (element as any).msRequestFullscreen();
+    }
+  }
+
+  protected continue(): void {
+    console.log(this.imagenesVehiculo);
+
+    if (this.imagenesVehiculo.length > 0) {
+      console.log('object');
+      this.router.navigate(['/finish'], {
+        state: {
+          imagenesVehiculo: this.imagenesVehiculo
+        }
+      });
+
+    }
+
+  }
 }

@@ -9,9 +9,12 @@ import { SpinnerModule } from './spinner/spinner.module';
 import { SharedModule } from '../../shared/shared.module';
 import { MatCardModule } from '@angular/material/card';
 import { SpinnerMaxScreenModule } from './spinner-max-screen/spinner-max-screen.module';
+import { FinishComponent } from './finish/finish.component';
 
 @NgModule({
   declarations: [
+  
+    FinishComponent
   ],
   imports: [
     CommonModule,
